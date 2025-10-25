@@ -3,15 +3,22 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "../store";
+import Loader from "../../shared/ui/Loader/Loader";
 
-const client = new QueryClient();
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+    },
+  },
+});
 
 export const AppProvider = memo(({ children }: { children: ReactNode }) => {
   return (
     <BrowserRouter>
       <Provider store={store}>
         <QueryClientProvider client={client}>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <Suspense fallback={<Loader />}>{children}</Suspense>
         </QueryClientProvider>
       </Provider>
     </BrowserRouter>

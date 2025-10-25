@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-const DashboardPage = () => {
+const Overview = () => {
   return (
     <div>
       <h2>Overview</h2>
@@ -8,4 +8,4 @@ const DashboardPage = () => {
   );
 };
 
-export default memo(DashboardPage);
+export default memo(Overview);

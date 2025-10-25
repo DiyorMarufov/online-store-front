@@ -32,15 +32,15 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center">
-      <div className="w-1/2 flex flex-col mt-50">
+    <div className="h-screen flex items-center justify-center px-5">
+      <div className="w-full max-w-lg p-8 rounded-2xl shadow-lg ">
         <div className="flex justify-center">
           <div>
             <img src={logo} alt="" />
           </div>
         </div>
 
-        <div className="mt-10 px-50 pb-8">
+        <div className="mt-5 pb-8">
           <h1 className="font-bold text-[24px] text-[#141414]">
             Sign into your Account
           </h1>
@@ -56,44 +56,38 @@ const LoginForm = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <div className="px-50">
-            <span className="text-[#242424] font-bold text-[15px]">Email</span>
-            <Form.Item<FieldType>
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <Input placeholder="Enter email" className="h-11" />
-            </Form.Item>
+          <span className="text-[#242424] font-bold text-[15px]">Email</span>
+          <Form.Item<FieldType>
+            name="email"
+            rules={[{ required: true, message: "Please input your email!" }]}
+          >
+            <Input placeholder="Enter email" className="h-11" />
+          </Form.Item>
 
-            <span className="text-[#242424] font-bold text-[15px]">
-              Password
+          <span className="text-[#242424] font-bold text-[15px]">Password</span>
+          <Form.Item<FieldType>
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password placeholder="Enter password" className="h-11" />
+          </Form.Item>
+
+          <Form.Item label={null}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="w-full h-11! bg-bg-sy! mt-4"
+              loading={signInUser.isPending}
+              disabled={signInUser.isPending}
+            >
+              Sign in
+            </Button>
+          </Form.Item>
+
+          <div className="flex justify-center">
+            <span className="cursor-pointer select-none text-bg-sy hover:underline">
+              Forgot Password?
             </span>
-            <Form.Item<FieldType>
-              name="password"
-              rules={[
-                { required: true, message: "Please input your password!" },
-              ]}
-            >
-              <Input.Password placeholder="Enter password" className="h-11" />
-            </Form.Item>
-
-            <Form.Item label={null}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-full h-11! bg-bg-sy! mt-4"
-                loading={signInUser.isPending}
-                disabled={signInUser.isPending}
-              >
-                Sign in
-              </Button>
-            </Form.Item>
-
-            <div className="flex justify-center">
-              <span className="cursor-pointer select-none text-bg-sy hover:underline">
-                Forgot Password?
-              </span>
-            </div>
           </div>
         </Form>
       </div>
