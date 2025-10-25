@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-py: #000000
-
+  --color-bg-py: #000000;
+  --color-bg-sy: #F06706;
 }
