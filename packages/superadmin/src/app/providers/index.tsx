@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "../store";
 import Loader from "../../shared/ui/Loader/Loader";
+import { NotificationProvider } from "../../shared/providers/NotificationProvider/NotificationProvider";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -18,7 +19,9 @@ export const AppProvider = memo(({ children }: { children: ReactNode }) => {
     <BrowserRouter>
       <Provider store={store}>
         <QueryClientProvider client={client}>
-          <Suspense fallback={<Loader />}>{children}</Suspense>
+          <NotificationProvider>
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </NotificationProvider>
         </QueryClientProvider>
       </Provider>
     </BrowserRouter>

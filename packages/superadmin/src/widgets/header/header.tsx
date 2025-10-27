@@ -21,15 +21,12 @@ const Header = () => {
       <div className="flex items-center">
         <div className="flex items-center gap-[19px]">
           <div>
-            <Bell />
+            <Bell className="hover:opacity-70 cursor-pointer" />
           </div>
           <div>
             <span className="text-[15px]">{fullName}</span>
             <p className="text-[11px] text-[#8C8C8C]">{role}</p>
           </div>
-        </div>
-        <div>
-          <img src="" alt="" />
         </div>
 
         <div

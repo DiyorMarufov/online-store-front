@@ -6,6 +6,8 @@ import { useAuth } from "../api/useAuth/authApi";
 import type { IAuthUser } from "../../../shared/lib/types";
 import { useDispatch } from "react-redux";
 import { setToken } from "../model/authSlice";
+import { useApiNotification } from "../../../shared/hooks/useApiNotification";
+import { jwtDecode } from "jwt-decode";
 
 type FieldType = {
   email?: string;
@@ -16,19 +18,35 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { signInUser } = useAuth();
+  const { handleApiError } = useApiNotification();
   const onFinish: FormProps<FieldType>["onFinish"] = (values: IAuthUser) => {
     signInUser.mutate(values, {
       onSuccess: (res) => {
-        dispatch(setToken(res?.data?.accessToken));
+        const accessToken = res?.data?.accessToken;
+        const decoded: any = jwtDecode(accessToken);
+        const role = decoded?.role;
+        if (role !== "superadmin") {
+          handleApiError("Superadmin huquqiga ega emassiz", "top");
+          return;
+        }
+        dispatch(setToken(accessToken));
         navigate("/");
       },
-    });
-  };
+      onError: (err: any) => {
+        let errorName = err?.response?.data?.message;
+        let errorMsg: any;
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo: any
-  ) => {
-    console.log("Failed:", errorInfo);
+        switch (true) {
+          case errorName === "Email or password incorrect":
+            errorMsg = "Telefon raqam yoki parol noto'g'ri";
+            break;
+          default:
+            errorMsg = "Server nosozlik";
+            break;
+        }
+        handleApiError(errorMsg, "top");
+      },
+    });
   };
 
   return (
@@ -53,13 +71,18 @@ const LoginForm = () => {
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <span className="text-[#242424] font-bold text-[15px]">Email</span>
           <Form.Item<FieldType>
             name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
+            rules={[
+              { required: true, message: "Please input your email!" },
+              {
+                type: "email",
+                message: "Please enter a valid email address!",
+              },
+            ]}
           >
             <Input placeholder="Enter email" className="h-11" />
           </Form.Item>
