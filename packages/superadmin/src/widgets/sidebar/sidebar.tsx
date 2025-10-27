@@ -5,7 +5,7 @@ import { SidebarNavigation } from "../../shared/config/routes";
 
 export const Sidebar = memo(() => {
   return (
-    <div className="w-[248px] bg-bg-py">
+    <div className="w-[248px] bg-bg-py max-[770px]:hidden">
       <div className="pt-[19px] flex justify-center">
         <img src={logo} alt="" />
       </div>

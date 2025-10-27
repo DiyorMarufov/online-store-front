@@ -2,19 +2,71 @@
 
 @theme {
   --color-bg-py: #000000;
-  --color-bg-sy: #F06706;
+  --color-bg-sy: #f06706;
 }
 
 .loader {
   width: 50px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: 
-    radial-gradient(farthest-side,#ffa516 94%,#0000) top/8px 8px no-repeat,
-    conic-gradient(#0000 30%,#ffa516);
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  background: radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px
+      no-repeat,
+    conic-gradient(#0000 30%, #ffa516);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: l13 1s infinite linear;
 }
-@keyframes l13{ 
-  100%{transform: rotate(1turn)}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th {
+    display: none;
+  }
+
+  td {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    grid-template-columns: 15ch auto;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #475569;
+    font-size: 14px;
+  }
+
+  td::before {
+    content: attr(data-cell);
+    color: #374151;
+    font-weight: 600;
+  }
+
+  tr {
+    border-bottom: 10px solid #e5e7eb;
+  }
+
+  tr:last-child {
+    border-bottom: 0;
+  }
+
+  .dark td::before {
+    color: #d1d5db;
+  }
+
+  .dark tr {
+    border-bottom: 10px solid #374151;
+  }
 }
