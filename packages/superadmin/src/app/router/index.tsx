@@ -5,7 +5,9 @@ const AuthGuard = lazy(() => import("../providers/router/AuthGuard"));
 const LoginPage = lazy(() => import("../../pages/login/LoginPage"));
 const DashboardPage = lazy(() => import("../../pages/dashboard/DashboardPage"));
 const WalletPage = lazy(() => import("../../pages/wallet/WalletPage"));
-const MerchantsPage = lazy(() => import("../../pages/users/UsersPage"));
+const UsersPage = lazy(() => import("../../pages/users/UsersPage"));
+const UsersAddPage = lazy(() => import("../../pages/users/UserAddPage"));
+
 const SettingsPage = lazy(() => import("../../pages/settings/SettingsPage"));
 
 export const Router = memo(() => {
@@ -28,7 +30,8 @@ export const Router = memo(() => {
             },
             {
               path: "users",
-              element: <MerchantsPage />,
+              element: <UsersPage />,
+              children: [{ path: "add", element: <UsersAddPage /> }],
             },
             {
               path: "wallet",

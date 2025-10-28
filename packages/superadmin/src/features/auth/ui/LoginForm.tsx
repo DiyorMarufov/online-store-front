@@ -95,7 +95,7 @@ const LoginForm = () => {
             <Input.Password placeholder="Enter password" className="h-11" />
           </Form.Item>
 
-          <Form.Item label={null}>
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
